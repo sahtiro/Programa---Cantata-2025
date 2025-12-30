@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Cantos de Natal</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --highlight-color: #ffca28; /* Amarelo Ouro */
+            --highlight-bg: rgba(255, 202, 40, 0.15);
+            --button-bg: #333333;
+            --button-active: #ffca28;
+            --button-text: #ffffff;
+            --button-text-active: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            padding-bottom: 80px; /* Espaço para o botão flutuante não cobrir texto */
+            font-size: 18px; /* Fonte base maior para mobile */
+        }
+
+        /* Cabeçalho Fixo */
+        header {
+            background-color: #000000;
+            padding: 15px 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: var(--highlight-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Menu de Navegação Horizontal */
+        nav {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 12px 5px;
+            background-color: #181818;
+            -webkit-overflow-scrolling: touch; /* Rolagem suave no iOS */
+            scrollbar-width: none; /* Esconde barra no Firefox */
+        }
+
+        nav::-webkit-scrollbar {
+            display: none; /* Esconde barra no Chrome/Safari */
+        }
+
+        nav a {
+            flex: 0 0 auto;
+            text-decoration: none;
+            color: var(--button-text);
+            background-color: var(--button-bg);
+            padding: 10px 20px; /* Área de toque maior */
+            margin: 0 6px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: 1px solid #444;
+            transition: background 0.2s;
+        }
+
+        nav a:active, nav a:focus {
+            background-color: var(--button-active);
+            color: var(--button-text-active);
+            border-color: var(--button-active);
+        }
+
+        /* Corpo do Texto */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .song-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px 20px;
+            margin-bottom: 40px;
+            border: 1px solid #333;
+            scroll-margin-top: 140px; /* Pulo correto considerando o cabeçalho */
+        }
+
+        .song-title {
+            color: var(--highlight-color);
+            font-size: 1.6rem;
+            line-height: 1.3;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
+        }
+
+        .lyrics {
+            font-size: 1.15rem; /* Letra grande */
+            white-space: pre-wrap;
+        }
+
+        /* Estilo do Refrão */
+        .refrain {
+            font-weight: 700;
+            color: #ffffff;
+            background-color: var(--highlight-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--highlight-color);
+        }
+
+        .instruction {
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Botão Voltar ao Topo (FAB) */
+        #backToTop {
+            display: none; /* Invisível por padrão */
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--highlight-color);
+            color: #000;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #backToTop:active {
+            transform: scale(0.95);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        /* Ajustes finos para telas muito pequenas */
+        @media (max-width: 360px) {
+            .lyrics { font-size: 1rem; }
+            nav a { padding: 8px 12px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Cantata de Natal - Nossa Senhora da Assunção</h1>
+</header>
+
+<nav>
+    <a href="#song1">1. Sinos</a>
+    <a href="#song2">2. Rebento</a>
+    <a href="#song3">3. Vamos Já, Pastores</a>
+    <a href="#song4">4. El Padre</a>
+    <a href="#song5">5. Marimorena</a>
+    <a href="#song6">6. Peces</a>
+    <a href="#song7">7. Burrito</a>
+    <a href="#song8">8. Um Grande Sinal</a>
+</nav>
+
+<div class="container">
+
+    <div id="song1" class="song-card">
+        <h2 class="song-title">1. O Canto dos Sinos</h2>
+        <div class="lyrics">Louvai a Deus, povos, louvai.
+Cristo nasceu, glória a Deus Pai.
+Anjos no céu cantam louvor (dim-dom-dim-dom)
+Glória a Jesus, Rei Salvador (dim-dom-dim-dom)
+Novas de amor, perdão e paz (dim-dom-dim-dom)
+Voz triunfal à Terra traz (dim-dom-dim-dom)
+Meu bom Jesus, dim-dom-dim-dom.
+Sinos em festa, alegre tom.
+
+Santo Senhor, Cristo Jesus (adoremos)
+Divino amor, bênção e luz (Jesus)
+Vinde, cantemos juntos a nosso Jesus.
+Caminho de amor e de luz.
+
+<div class="refrain">Vamos todos cantar a Belém.
+O menino que a Senhora tem.
+Dim-dom-dim-dom, Belém, Belém.
+Dim-dom-dim-dom, Belém, Belém. Dom.</div>
+<span class="instruction">(Repete o canto todo)</span></div>
+    </div>
+
+    <div id="song2" class="song-card">
+        <h2 class="song-title">2. Um Rebento Brota do Tronco de Jessé</h2>
+        <div class="lyrics"><div class="refrain">A. UM REBENTO BROTA DO TRONCO DE JESSÉ,
+UM RAMO DE SUAS RAÍZES.
+SOBRE ELE POUSA O ESPÍRITO DO SENHOR:
+ESPÍRITO DE SABEDORIA E DE INTELIGÊNCIA,
+ESPÍRITO DE CONSELHO E FORTALEZA,
+ESPÍRITO DE CIÊNCIA E DE PIEDADE,
+ESPÍRITO DO TEMOR DO SENHOR.</div>
+S. Não julgará por ouvir dizer,
+mas ajudará os oprimidos.
+Sua palavra será uma vara contra o violento
+e, com o sopro dos seus lábios, matará o malvado.
+
+O lobo morará com o cordeiro,
+a pantera se deitará com o cabrito,
+o leão e o novilho pastarão juntos,
+e um menino os guiará, e um menino os guiará.
+
+<div class="refrain">A. UM REBENTO BROTA...</div>
+
+S. A vaca e o urso andarão juntos,
+o leão comerá palha como o boi.
+O menino de peito brincará
+na cova da áspide,
+o recém-nascido porá a mão
+na cova da serpente venenosa.
+
+<div class="refrain">A. PORQUE NINGUÉM FARÁ O MAL.
+S. Porque do conhecimento do Senhor, ficará cheia a terra.
+A. PORQUE DO CONHECIMENTO DO SENHOR,
+FICARÁ CHEIA A TERRA.</div>
+
+S. Porque naquele dia
+a raiz de Jessé se levantará
+como estandarte dos povos,
+e as nações o seguirão com ânsia.
+Naquele dia o Senhor estenderá a sua mão
+porque um caminho se abrirá,
+
+<div class="refrain">A. PORQUE UM CAMINHO SE ABRIRÁ;
+S. uma via para todas as nações,
+A. UMA VIA PARA TODAS AS NAÇÕES,
+S. que a Virgem apontará.
+A. UM REBENTO BROTA...</div></div>
+    </div>
+
+    <div id="song3" class="song-card">
+        <h2 class="song-title">3. Vamos Já, Pastores</h2>
+        <div class="lyrics"><div class="refrain">Vamos já, Pastores, vamos a Belém
+Nasceu um menino, se chama Emanuel.
+Se chama Emanuel, Se chama Emanuel.
+Vamos já, Pastores, vamos a Belém.
+</div>
+Os pobres já cantam, 
+os meninos já riem.
+
+Os pobres já cantam, 
+os meninos já riem.
+
+<div class="refrain">Alegria, Alegria, 
+Alegria, Alegria.
+Alegria, Alegria: 
+Nasceu o Salvador!</div>
+<div class="refrain">Vamos já, Pastores...</div>
+Sua Mãe, Maria; 
+seu pai, José.
+
+Nasceu um menino,
+se chama Emanuel.
+
+<div class="refrain">Alegria, Alegria, 
+Alegria, Alegria.
+Alegria, Alegria: 
+Nasceu o Salvador!</div></div>
+<div class="refrain">Vamos já, Pastores...</div>
+    </div>
+
+    <div id="song4" class="song-card">
+        <h2 class="song-title">4. El Padre Está en el Cielo</h2>
+        <div class="lyrics"><div class="refrain">A. EL PADRE ESTÁ EN EL CIELO,
+ME HA DADO LA VIDA,
+Y HOY HA DESEADO,
+HACERME HIJO SUYO.</div>
+Venció para mí la muerte,
+y me ha dado un nombre nuevo,
+me ha sellado con la cruz,
+me ha hecho hijo suyo.
+
+<div class="refrain">A. EL PADRE ESTÁ EN EL CIELO...</div>
+
+Me ha abierto el oído,
+y abierto mis ojos,
+me ha abierto la boca,
+me ha hecho hijo suyo.
+
+<div class="refrain">A. EL PADRE ESTÁ EN EL CIELO...</div>
+
+Me ha sumergido en la muerte
+y la vida de su Hijo,
+Él me ha dado la blanca túnica,
+una vida nueva me dio.
+
+Lalala lálala lala lala
+Lalala lálala lala lala <span class="instruction">(Bis)</span>
+Lalalalá lalala lálala
+Lalala lálala la
+
+<div class="refrain">A. EL PADRE ESTÁ EN EL CIELO...</div></div>
+    </div>
+
+    <div id="song5" class="song-card">
+        <h2 class="song-title">5. La Marimorena</h2>
+        <div class="lyrics"><div class="refrain">Ande, ande, ande La Marimorena,
+ande, ande que es la Nochebuena.</div>
+En el portal de Belén
+hay estrellas, sol y luna
+la Virgen y San José,
+y el Niño que está en la cuna.
+
+<div class="refrain">Ande, ande, ande...</div>
+
+Una estrella se ha perdido
+y en el cielo no aparece,
+se ha metido en el Portal
+y en Su rostro resplandece.
+
+<div class="refrain">Ande, ande, ande...</div>
+
+De Oriente salen tres Reyes
+para adorar al Dios Niño
+una estrella les guiaba
+para seguir el camino.
+
+<div class="refrain">Ande, ande, ande...</div>
+
+En el Portal de Belén
+hacen Luna los pastores
+para calentar al niño
+que ha nacido entre las flores.
+
+<div class="refrain">Ande, ande, ande...</div>
+
+En el portal de Belén
+han entrado los ratones
+y al bueno de San José
+le han roído los calzones.
+
+<div class="refrain">Ande, ande, ande...</div>
+
+Un pastor comiendo sopas
+en el aire divisó
+un ángel que le decía
+ha nacido el Redentor.
+
+<div class="refrain">Ande, ande, ande La Marimorena
+Ande, ande que es la Nochebuena</div></div>
+    </div>
+
+    <div id="song6" class="song-card">
+        <h2 class="song-title">6. Los Peces en el Río</h2>
+        <div class="lyrics">La virgen se está peinando
+Entre cortina y cortina
+Los cabellos son de oro
+El peine de plata fina
+
+<div class="refrain">Pero mira cómo beben los peces en el río
+Pero mira cómo beben por ver a Dios nacido
+Beben y beben y vuelven a beber
+Los peces en el río por ver a Dios nacer</div>
+
+La virgen está lavando
+Y tendiendo en el romero
+Los pajarillos cantando
+Y el romero floreciendo
+
+<div class="refrain">Pero mira cómo beben...</div>
+
+La virgen va caminando
+Va caminando solita
+Y no lleva más compaña
+Que el niño de la manita
+
+<div class="refrain">Pero mira cómo beben...</div>
+
+<span class="instruction">(Final:)</span>
+Por ver a Dios nacer
+Por ver a Dios nacer
+Por ver a Dios nacer
+Por ver... a Dios... NACER!</div>
+    </div>
+
+    <div id="song7" class="song-card">
+        <h2 class="song-title">7. Mi Burrito Sabanero</h2>
+        <div class="lyrics">Con mi burrito sabanero, voy camino de Belén
+Con mi burrito sabanero, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+El lucerito mañanero ilumina mi sendero
+El lucerito mañanero ilumina mi sendero
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+Con mi cuatrico voy cantando, mi burrito va trotando
+Con mi cuatrico voy cantando, mi burrito va trotando
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+<div class="refrain">Tuqui tuqui tuqui tuqui,
+Tuqui tuqui tuqui ta
+Apúrate mi burrito que ya vamos a llegar
+Tuqui tuqui tuqui tuqui,
+Tuqui tuqui tuqui tu
+Apúrate mi burrito vamos a ver a Jesús</div>
+
+Con mi burrito sabanero, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+El lucerito mañanero ilumina mi sendero
+El lucerito mañanero ilumina mi sendero
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+Con mi cuatrico voy cantando, mi burrito va trotando
+Con mi cuatrico voy cantando, mi burrito va trotando
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+<div class="refrain">Tuqui tuqui tuqui tuqui,
+Tuqui tuqui tuqui ta
+Apúrate mi burrito que ya vamos a llegar
+Tuqui tuqui tuqui tuqui,
+Tuqui tuqui tuqui tu
+Apúrate mi burrito vamos a ver a Jesús</div>
+
+Con mi burrito sabanero, voy camino de Belén
+Con mi burrito sabanero, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+</span></div>
+    </div>
+
+    <div id="song8" class="song-card">
+        <h2 class="song-title">8. Um Grande Sinal</h2>
+        <div class="lyrics"><div class="refrain">A. UM GRANDE SINAL APARECEU NO CÉU:
+UMA MULHER, UMA MULHER VESTIDA COM O SOL,
+TENDO A LUA SOB OS PÉS,
+E UMA COROA DE DOZE ESTRELAS;
+ESTÁ GRÁVIDA E GRITA
+COM TORMENTOS PARA DAR À LUZ.</div>
+S. Apareceu, então, outro sinal no céu:
+um grande Dragão cor de fogo,
+com sete cabeças e dez chifres.
+O Dragão colocou-se diante da Mulher,
+da Mulher que estava para dar à luz,
+a fim de devorar-lhe o Filho tão logo nascesse.
+Ela deu à luz um Filho varão,
+aquele que irá reger todas as nações da terra.
+Seu Filho, porém, foi arrebatado
+para junto de Deus e de seu trono.
+
+<div class="refrain">A. UM GRANDE SINAL...</div>
+
+S. Houve, então, uma batalha no céu: Miguel e seus Anjos
+combateram contra o Dragão, o grande Dragão.
+S. O Dragão batalhou juntamente
+com seus Anjos, mas foi derrotado,
+e não se encontrou mais um lugar para eles no céu.
+Foi expulso o Dragão, o grande Dragão,
+a antiga Serpente, o chamado Diabo ou Satanás,
+o sedutor do mundo inteiro, foi expulso para a terra e
+seus Anjos foram expulsos com ele.
+
+<div class="refrain">A. UM GRANDE SINAL...</div>
+
+S. Ao ver que fora expulso para a terra,
+o Dragão pôs-se a perseguir a Mulher
+que dera à luz o Filho varão.
+Ela, porém, recebeu as duas asas da grande águia,
+para voar ao deserto, onde deve ser alimentada
+um tempo, dois tempos e metade de um tempo.
+Enfurecido por causa da Mulher,
+o grande Dragão foi então guerrear contra
+o resto dos seus filhos, os que guardam os
+mandamentos de Deus
+e mantêm o testemunho de Jesus.
+
+A. LA LA LA LA LA LA LA...</div>
+    </div>
+
+</div>
+
+<button onclick="topFunction()" id="backToTop" title="Voltar ao topo">⬆</button>
+
+<footer>
+    <p>Cantata de Natal - Nossa Senhora da Assunção</p>
+</footer>
+
+<script>
+    // Controle do Botão Voltar ao Topo
+    var mybutton = document.getElementById("backToTop");
+
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            mybutton.style.display = "flex";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+
+</body>
+</html>
